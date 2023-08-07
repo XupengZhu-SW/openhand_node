@@ -81,7 +81,7 @@ class OpenHand():
 						print( "------------FAILSAFE-------------")
 						print( "Failsafe is incorporated to prevent gear shear in Model O")
 						print( "Motor encoder postion: ", enc)
-						input = raw_input("Your encoder position for motor index " + str(i) + " may cause the motor to move backwards and break gears. We recommend you resetting the fingers to prevent gear shear, proceed? [ENTER]")
+						_ = input("Your encoder position for motor index " + str(i) + " may cause the motor to move backwards and break gears. We recommend you resetting the fingers to prevent gear shear, proceed? [ENTER]")
 					else:
 						print( "Motor directions not set...")
 				#These would then be the MX and XM motors
@@ -89,7 +89,7 @@ class OpenHand():
 					print( "------------FAILSAFE-------------")
 					print( "Failsafe is incorporated to prevent gear shear in Model O")
 					print( "Motor encoder postion: ", enc)
-					input = raw_input("As an XM Motor, we can automatically fix this issue for motor " + str(i) + ", proceed? [ENTER]")
+					_ = input("As an XM Motor, we can automatically fix this issue for motor " + str(i) + ", proceed? [ENTER]")
 					self.servos[i].enable_extended_position_control_mode()
 					self.servos[i].move_to_encoder(self.servos[i].settings['max_encoder']+100)
 					time.sleep(self.pause)
@@ -159,9 +159,9 @@ class OpenHand():
 	def getCurrDir(self):
 		global currdir, take_no
 		print( 'Current directory: ')
-		currdir = raw_input()
+		currdir = input()
 		print( 'Take number: ')
-		take_no = raw_input()
+		take_no = input()
 
 
 	def torqueMotor(self,index,val,pos_val=None):
