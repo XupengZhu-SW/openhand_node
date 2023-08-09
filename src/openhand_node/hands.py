@@ -5,7 +5,7 @@
 #Updated 09/2019
 
 from __future__ import print_function
-from lib_robotis_mod import *
+from openhand_node.lib_robotis_mod import *
 import time
 import numpy as np	#for array handling
 import scipy.io

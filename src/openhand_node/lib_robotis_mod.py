@@ -46,8 +46,8 @@ import ctypes
 import numpy as np
 import IPython
 
-from registerDict import *
-import registerDict
+from openhand_node.registerDict import *
+import openhand_node.registerDict as registerDict
 
 
 class USB2Dynamixel_Device():
