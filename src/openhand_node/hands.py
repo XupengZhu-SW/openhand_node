@@ -285,6 +285,16 @@ class OpenHand():
             print("Target Encoder: " + repr(servo.read_target_encoder()))
             print("Current Encoder: " + repr(servo.read_encoder()))
 
+    def readServoInfos(self):
+        servo_ids, servo_loads, servo_temp, servo_target_encoder, servo_current_encoder = [], [], [], [], []
+        for servo in self.servos:
+            servo_ids.append(servo.servo_id)
+            servo_loads.append(servo.read_load())
+            servo_temp.append(servo.read_temperature())
+            servo_target_encoder.append(servo.read_target_encoder())
+            servo_current_encoder.append(servo.read_encoder())
+        return {servo_ids, servo_loads, servo_temp, servo_target_encoder, servo_current_encoder,
+                self.motorMin, self.motorMax, self.motorDir}
 
 # ------------------------------------------------------#
 
