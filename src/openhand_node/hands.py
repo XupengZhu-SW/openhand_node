@@ -293,8 +293,9 @@ class OpenHand():
             servo_temp.append(servo.read_temperature())
             servo_target_encoder.append(servo.read_target_encoder())
             servo_current_encoder.append(servo.read_encoder())
-        return {servo_ids, servo_loads, servo_temp, servo_target_encoder, servo_current_encoder,
-                self.motorMin, self.motorMax, self.motorDir}
+        return {"servo_ids": servo_ids, "servo_loads": servo_loads, "servo_temp": servo_temp,
+                "servo_target_encoder": servo_target_encoder, "servo_current_encoder": servo_current_encoder,
+                "self.motorMin": motorMin, "self.motorMax": motorMax, "self.motorDir": motorDir}
 
 # ------------------------------------------------------#
 
