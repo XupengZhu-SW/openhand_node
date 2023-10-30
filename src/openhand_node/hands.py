@@ -65,6 +65,7 @@ class OpenHand():
             if series == "RX":
                 servo.apply_speed(1)
             time.sleep(self.pause)
+            print(self.max_torque)
             servo.apply_max_torque(self.max_torque)
         self.modes = [
                          True] * num_servos  # default assignment (shouldn't have servos in torque mode during normal operation)
@@ -105,7 +106,7 @@ class OpenHand():
                 self.servos[0].enable_current_position_control_mode(self.abduction_limit)
 
         time.sleep(self.pause)
-        self.reset()
+        #self.reset()
         print("Initialization Complete.")
 
     def reset(self):  # returns everything to zeroed positions, different from release
@@ -154,8 +155,11 @@ class OpenHand():
             servo = self.servos[index]
 
             if self.motorDir[index] > 0:  # normal case
+                print(int(servo.settings["max_encoder"] * (
+                            self.motorMin[index] + amnt * (self.motorMax[index] - self.motorMin[index]))))
                 servo.move_to_encoder(int(servo.settings["max_encoder"] * (
                             self.motorMin[index] + amnt * (self.motorMax[index] - self.motorMin[index]))))
+                
             else:  # reverse
                 servo.move_to_encoder(int(servo.settings["max_encoder"] * (
                             self.motorMax[index] - amnt * (self.motorMax[index] - self.motorMin[index]))))
@@ -197,6 +201,7 @@ class OpenHand():
     def readMotor(self, index):
         servo = self.servos[index]
         enc = servo.read_encoder()
+        print(enc, float(servo.settings["max_encoder"]))
         if self.motorDir[index] > 0:
             val = (enc / float(servo.settings["max_encoder"]) - self.motorMin[index]) / (
                         self.motorMax[index] - self.motorMin[index])
@@ -295,7 +300,7 @@ class OpenHand():
             servo_current_encoder.append(servo.read_encoder())
         return {"servo_ids": servo_ids, "servo_loads": servo_loads, "servo_temp": servo_temp,
                 "servo_target_encoder": servo_target_encoder, "servo_current_encoder": servo_current_encoder,
-                "self.motorMin": motorMin, "self.motorMax": motorMax, "self.motorDir": motorDir}
+                "self.motorMin": self.motorMin, "self.motorMax": self.motorMax, "self.motorDir": self.motorDir}
 
 # ------------------------------------------------------#
 
@@ -605,9 +610,8 @@ class Model_O(OpenHand):
 
 class Model_T42(OpenHand):
     servo_speed = 0.25
-    max_torque = 1
+    max_torque = 0.4 #1
     modes = [True, True]  # True if in position control
-
     max_close = 0.75
     # motorDir = [1, 1]
     motorMin = [0.05, 0.05]

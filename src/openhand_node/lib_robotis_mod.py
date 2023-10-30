@@ -164,7 +164,8 @@ class Robotis_Servo():
 
         # Set Return Delay time - Used to determine when next status can be requested
         data = self.read_address( self.ADDR_DICT["ADDR_RETURN_DELAY_TIME"], 1)
-        self.return_delay = data[0] * 3e-4
+        self.return_delay = 250 * 2e-6 #Yifan: added this
+        #self.return_delay = data[0] * 3e-4
 
         self.settings = {}
         #removed external servo settings file to simplify things (we usually only deal with MX or RX, and both settings are included above)
